@@ -10,8 +10,10 @@
         <title>POS | IMPRESSIVE LINE</title>
         <link href="<?php echo base_url(); ?>/css/styles.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>/css/dataTables.bootstrap4.min.css" rel="stylesheet"  />
-       <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-
+        <link href="<?php echo base_url(); ?>/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+        <script src="<?php echo base_url(); ?>/js/jquery-ui/external/jquery/jquery.js"></script>
+        <script src="<?php echo base_url(); ?>/js/jquery-ui/jquery-ui.min.js"></script>
+    </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <a class="navbar-brand" href="index.html">POS | IMPRESSIVE LINE</a>
@@ -41,8 +43,8 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 MENU
                             </a>
-                            <a class="nav-link" href="pos.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <a class="nav-link" href="<?php echo base_url(); ?>/ventas/pos">
+                                <div class="sb-nav-link-icon"><i class="fas fa-cash-register"></i></div>
                                 PTV
                             </a>
 
@@ -62,7 +64,7 @@
                             </div>
 
                             <a class="nav-link collapsed"  href="#" data-toggle="collapse" data-target="#collapseCompras" aria-expanded="false" aria-controls="collapseCompras">
-                                <div class="sb-nav-link-icon"><i class="fas fa-cash-register"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-truck"></i></div>
                                 Compras
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
