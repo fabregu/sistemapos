@@ -36,12 +36,6 @@
                             </div>
 
                             <div class="col-12 col-sm-6">
-                                <label>Imagen</label>
-                                <input class="form-control" id="imagen" type="file" name="imagen"  />
-                                <small id="fileHelp" class="form-text text-muted">Seleccione un archivo jpg/png</small>
-                            </div>
-
-                            <div class="col-12 col-sm-6">
                                 <label>Costo</label>
                                 <input class="form-control file" id="costo" type="text" name="costo" value="<?php echo $producto['costo']; ?>" />
                             </div>
@@ -92,7 +86,17 @@
                                 <label>Alerta Cantidad</label>
                                 <input class="form-control" id="alerta_cantidad" type="text" name="alerta_cantidad" value="<?php echo $producto['alerta_cantidad']; ?>" />                                 
                             </div>
-
+                            
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <label for="">Imagen</label><br>
+                                        <img src="<?php echo base_url().'/images/productos/'.$producto['id'].'.jpg'; ?>" class="img-responsive" width="150px" alt="Logotipo" />
+                                        <input type="file" id="img_producto" name="img_producto" accept="image/*"/>
+                                        <small id="text-danger" class="form-text text-muted">Seleccione un archivo jpg 150x150 px</small>
+                                    </div>
+                                </div>
+                            </div>                
                         </div>
 
                          <a href="<?php echo base_url(); ?>/productos" class="btn btn-primary">Regresar</a>

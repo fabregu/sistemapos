@@ -11,7 +11,7 @@
                  <?php } ?>
                             
                 <div class="card-body">
-                    <form method="POST" action="<?php echo base_url(); ?>/productos/insertar" autocomplete="off">
+                    <form method="POST" enctype="multipart/form-data" action="<?php echo base_url(); ?>/productos/insertar" autocomplete="off">
                     <div class="form-group">
                         <div class="row">
 
@@ -34,12 +34,6 @@
                                    <?php } ?>
                                    
                               </select>                               
-                            </div>
-
-                            <div class="col-12 col-sm-6">
-                                <label>Imagen</label>
-                                <input class="form-control" id="imagen" type="file" name="imagen"  />
-                                <small id="fileHelp" class="form-text text-muted">Seleccione un archivo jpg/png</small>
                             </div>
 
                             <div class="col-12 col-sm-6">
@@ -90,6 +84,16 @@
                              <div class="col-12 col-sm-6">
                                 <label>Alerta Cantidad</label>
                                 <input class="form-control" id="alerta_cantidad" type="text" name="alerta_cantidad"  />                                 
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <label for="">Imagen</label><br>
+                                        <input type="file" id="img_producto" name="img_producto" accept="image/*"/>
+                                        <small class="form-text text-muted">Seleccione un archivo jpg 150x150 px</small>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

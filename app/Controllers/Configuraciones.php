@@ -64,6 +64,29 @@ class Configuraciones extends BaseController
 			$this->configuraciones->whereIn('nombre', ['tienda_email'])->set(['valor' => $this->request->getPost('tienda_email')])->update();
 			$this->configuraciones->whereIn('nombre', ['tienda_direccion'])->set(['valor' => $this->request->getPost('tienda_direccion')])->update();
 			$this->configuraciones->whereIn('nombre', ['ticket_leyenda'])->set(['valor' => $this->request->getPost('ticket_leyenda')])->update();
+			
+			$validacion = $this->validate([
+				'tienda_logo' =>
+					'uploaded[tienda_logo]',
+					'mime_in[tienda_logo,image/png]',
+					'max_size[tienda_logo, 4096]'
+			]);
+
+			if($validacion)
+			{
+				$ruta_logo = "images/logotipo.png";
+				if(file_exists($ruta_logo))
+				{
+					unlink($ruta_logo);	
+				}
+				$img = $this->request->getFile('tienda_logo');
+				$img->move('./images', 'logotipo.png');
+			}else
+			{
+				echo 'Error en la validacion';
+				exit;
+			}
+			//$img->move(WRITEPATH. '/uploads'); guarda en la ruta writable por defecto
 			return redirect()->to(base_url().'/configuraciones');
 		}else
 		{

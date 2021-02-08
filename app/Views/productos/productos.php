@@ -49,7 +49,7 @@
                                             		
                                         <tr>
                                             <td><?php echo $datos['id']; ?></td>
-                                            <td><?php echo $datos['imagen']; ?></td>
+                                            <td><img src="<?php echo base_url().'/images/productos/'.$datos['id'].'.jpg'; ?>" class="img-responsive" width="70px" alt="<?php echo $datos['nombre']; ?>" /></td>
                                             <td><?php echo $datos['codigo']; ?></td>
                                             <td><?php echo $datos['nombre']; ?></td>
                                             <!--<td><?php //echo $dato['categoria']; ?></td>-->

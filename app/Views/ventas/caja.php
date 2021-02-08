@@ -36,7 +36,7 @@
                         <div class="col-12 col-sm-4">   
                             <input type="hidden" id="id_producto" name="id_producto" />
                             <label>Código de barras</label>
-                            <input class="form-control" id="codigo"  name="codigo" type="text" placeholder="Escribe el código"  onkeyup="agregarProducto(event, this.value, 1, <?php echo $idVentaTmp; ?>);" autofocus />
+                            <input class="form-control" id="codigo"  name="codigo" type="text" placeholder="Escribe el código"  onkeyup="agregarProducto(event, this.value, 1, <?php echo $idVentaTmp; ?>);" />
                         </div>      
                         <div class="col-sm-2"> 
                                 <label for="codigo" id="resultado_error" name="resultado_error" style="color: red"></label>

@@ -47,6 +47,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-cash-register"></i></div>
                                 PTV
                             </a>
+                            <a class="nav-link" href="<?php echo base_url(); ?>/ventas">
+                                <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
+                                Lista de Ventas
+                            </a>
 
                             <div class="sb-sidenav-menu-heading">Interface</div>
 

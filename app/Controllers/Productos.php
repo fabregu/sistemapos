@@ -99,7 +99,30 @@ class Productos extends BaseController
 								'detalles' => $this->request->getPost('detalles'),
 								'alerta_cantidad' => $this->request->getPost('alerta_cantidad')
 								]);
-		return redirect()->to(base_url().'/productos');
+
+			$id= $this->productos->insertID();	//Generamos el id del prod. para asi guardar cada imagen				
+			$validacion = $this->validate([
+				'img_producto' =>
+					'uploaded[img_producto]',
+					'mime_in[img_producto,image/jpg,image/jpeg]',
+					'max_size[img_producto, 4096]'
+			]);
+
+			if($validacion)
+			{
+				$ruta_img = "images/productto/".$id.".jpg";
+				if(file_exists($ruta_img))
+				{
+					unlink($ruta_img);	
+				}
+				$img = $this->request->getFile('img_producto');
+				$img->move('./images/productos', $id. '.jpg');
+			}else
+			{
+				echo 'Error en la validacion';
+				exit;
+			}					
+			return redirect()->to(base_url().'/productos');
 		}else
 		{
 			$categorias = $this->categorias->where('activo', 1)->findAll();
