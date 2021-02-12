@@ -27,4 +27,23 @@ class ProductosModel extends Model
         $this->where('id', $id_producto);
         $this->update();
     }
+
+    public function totalProductos()
+    {
+       return $this->where('activo', 1)->countAllResults();
+    }
+
+    public function stockMinimo()
+    {
+        $where = "alerta_cantidad >= cantidad AND activo = 1";
+        $this->where($where);
+        $sql = $this->countAllResults();
+        return $sql;
+    }
+
+    public function getStockMinimo()
+    {
+        $where = "alerta_cantidad >= cantidad AND activo = 1";
+        return  $this->where($where)->findAll();
+    }
 }

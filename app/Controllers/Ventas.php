@@ -6,10 +6,11 @@ use App\Models\TemporalComprasModel;
 use App\Models\DetalleVentaModel;
 use App\Models\ProductosModel;
 use App\Models\ConfiguracionesModel;
+use App\Models\CajasModel;
 
 class Ventas extends BaseController
 {
-	protected $ventas, $temporal_compras, $detalle_venta, $productos, $configuracion;
+	protected $ventas, $temporal_compras, $detalle_venta, $productos, $configuracion, $cajas, $session;
 
 	public function __construct()
 	{
@@ -17,6 +18,8 @@ class Ventas extends BaseController
 		$this->detalle_venta = new DetalleVentaModel();
 		$this->productos = new ProductosModel();
 		$this->configuracion = new ConfiguracionesModel();
+		$this->cajas = new CajasModel();
+		$this->session = session();
 
 		helper(['form']);
 
@@ -24,6 +27,7 @@ class Ventas extends BaseController
 
 	public function index($activo = 1)
 	{
+		if(!isset($this->seesion->id_usuario)) {return redirect()->to(base_url());}
 		$datos = $this->ventas->obtener(1);
 		$data = ['titulo' => 'Ventas', 'datos' => $datos];
 		echo view('header');
@@ -55,14 +59,17 @@ class Ventas extends BaseController
 			$forma_pago = $this->request->getPost('forma_pago');
 			$id_cliente = $this->request->getPost('id_cliente');
 
-			$session = session();
+			$caja = $this->cajas->where('id', $this->session->id_caja)->first();
+			$folio = $caja['folio'];
 
-			$resultadoId = $this->ventas->insertaVenta($id_venta, $total, $session->id_usuario, $session->id_caja, $id_cliente, $forma_pago);
+			$resultadoId = $this->ventas->insertaVenta($folio, $total,  $this->session->id_usuario, $this->session->id_caja, $id_cliente, $forma_pago);
 
 			$this->temporal_compras = new TemporalComprasModel();
 
 			if($resultadoId)
 			{
+				$folio++;
+				$this->cajas->update($this->session->id_caja, ['folio' => $folio]);
 				$resultadoCompra = $this->temporal_compras->porCompra($id_venta);
 
 				foreach($resultadoCompra as $row)
@@ -107,7 +114,7 @@ class Ventas extends BaseController
 		$pdf->SetTitle('Venta');
 		$pdf->SetFont('Arial', 'B', 9);
 
-		$pdf->image(base_url() . '/images/logo.png', 5, 0, 15, 15, 'PNG' );
+		$pdf->image(base_url() . '/images/logotipo.png', 5, 0, 15, 15, 'PNG' );
 		$pdf->Cell(70, 5, $nombreTienda, 0, 1, 'C');
 
 		$pdf->Cell(20, 5, utf8_decode('Dirección: '), 0, 0, 'L');

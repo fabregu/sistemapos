@@ -16,7 +16,7 @@
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">POS | IMPRESSIVE LINE</a>
+            <a class="navbar-brand" href="<?php echo base_url(); ?>/inicio">POS | IMPRESSIVE LINE</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
            
             <!-- Navbar-->
@@ -125,7 +125,7 @@
                             <div class="sb-sidenav-menu-heading">Addons</div>
 
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseConfiguraciones" aria-expanded="false" aria-control="collapseConfiguracion">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Administración
                             </a>
                             
@@ -133,13 +133,25 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="<?php echo base_url(); ?>/configuraciones">Configuraciones</a>
                                     <a class="nav-link" href="<?php echo base_url(); ?>/usuarios">Usuarios</a>
+                                    <a class="nav-link" href="<?php echo base_url(); ?>/roles">Roles</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReportes" aria-expanded="false" aria-control="collapseReportes">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Reportes
+                            </a>
+
+                            <div class="collapse" id="collapseReportes" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?php echo base_url(); ?>/productos/muestraMinimos">Reportes de Mínimos
+                                    </a>
+                                    <a class="nav-link" href="<?php echo base_url(); ?>/configuraciones">Reportes de Ventas
+                                    </a>
+                                    <a class="nav-link" href="<?php echo base_url(); ?>/usuarios">Reporte de Compras</a>
                                 </nav>
                             </div>
                        
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
                         </div>
                     </div>
                     

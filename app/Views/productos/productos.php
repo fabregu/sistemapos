@@ -3,8 +3,10 @@
         <div class="container-fluid">
             <h1 class="mt-4"><?php echo $titulo; ?></h1>
                 <ol class="breadcrumb mb-4">
-                    <a class="btn btn-warning" href="<?php echo base_url();?>/productos/eliminados">Eliminados</a>
-                </ol>          
+                    <a class="btn btn-success" href="<?php echo base_url();?>/productos/eliminados">Eliminados</a>
+
+                    <a class="btn btn-warning" href="<?php echo base_url();?>/productos/muestraCodigos">Codigo de Barras</a>
+                </ol>            
             <div class="card mb-4">
             <div class="card-header">
               <i class="fas fa-table mr-1"></i>

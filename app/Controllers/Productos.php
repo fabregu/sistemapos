@@ -239,4 +239,74 @@ class Productos extends BaseController
 		}
 		echo json_encode($returnData);
 	}
+
+	public function muestraCodigos()
+	{
+		echo view('header');
+		echo view('/productos/ver_codigo');
+		echo view('footer');
+	}
+
+	public function generaBarras()
+	{
+		$pdf = new \FPDF('P', 'mm', 'letter');
+		$pdf->AddPage();
+		$pdf->SetMargins(10,10,10);
+		$pdf->SetTitle("Codigo de Barras");
+
+		$productos = $this->productos->where('activo', 1)->findAll();
+		foreach($productos as $producto)
+		{
+			$codigo = $producto['codigo'];
+
+		
+			$generabarcode = new \barcode_genera();
+			$generabarcode->barcode("images/barcode/".$codigo.".png", $codigo, 20, "horizontal", "code39", true);
+		
+			$pdf->Image("images/barcode/".$codigo.".png");
+			//unlink("images/barcode/".$codigo.".png"); borramos las imagenes que genera
+
+		}
+		$this->response->setHeader('Content-Type', 'application/pdf');
+		$pdf->Output('Codigo.pdf', 'I');
+	}
+
+	
+	public function muestraMinimos()
+	{
+		echo view('header');
+		echo view('productos/ver_minimos');
+		echo view('footer');
+	}
+
+	public function generaMinimosPdf()
+	{
+		$pdf = new \FPDF('P', 'mm', 'letter');
+		$pdf->AddPage();
+		$pdf->SetMargins(10,10,10);
+		$pdf->SetTitle("Productos con Stock Minimo");
+
+		$pdf->SetFont("Arial", "B", 10);
+		$pdf->Image("images/logotipo.png", 10, 10, 20);
+
+		$pdf->Cell(0, 5, utf8_decode("Reporte de Producto con stock mínimo"), 0, 1, 'C');
+		$pdf->Ln(15);
+
+		$pdf->Cell(40, 5, utf8_decode("Código"),1, 0, 'C');
+		$pdf->Cell(90, 5, utf8_decode("Nombre"),1, 0, 'C');
+		$pdf->Cell(30, 5, utf8_decode("Cantidad"),1, 0, 'C');
+		$pdf->Cell(30, 5, utf8_decode("Stock Mínimo"),1, 1, 'C');
+
+		$datosProducto =$this->productos->getStockMinimo();
+		foreach($datosProducto as $producto)
+		{
+			$pdf->Cell(40, 5, $producto['codigo'],1, 0, 'C');
+			$pdf->Cell(90, 5, utf8_decode($producto['nombre']),1, 0, 'C');
+			$pdf->Cell(30, 5, $producto['cantidad'],1, 0, 'C');
+			$pdf->Cell(30, 5, $producto['alerta_cantidad'],1, 1, 'C');	
+		}
+
+		$this->response->setHeader('Content-Type', 'application/pdf');
+		$pdf->Output('ProductoMinimo.pdf', 'I');
+	}
 }

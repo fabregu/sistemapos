@@ -4,17 +4,19 @@ use App\Controllers\BaseController;
 use App\Models\UsuariosModel;
 use App\Models\CajasModel;
 use App\Models\RolesModel;
+use App\Models\LogsModel;
 
 class Usuarios extends BaseController
 {
 	protected $usuarios, $cajas, $roles;
-	protected $reglas, $reglasLogin, $reglasCambioPass;
+	protected $reglas, $reglasLogin, $reglasCambioPass, $logs;
 
 	public function __construct()
 	{
 		$this->usuarios = new UsuariosModel();
 		$this->cajas = new CajasModel();
 		$this->roles = new RolesModel();
+		$this->logs= new LogsModel();
 
 		helper(['form']);
 
@@ -222,10 +224,19 @@ class Usuarios extends BaseController
 						'id_caja' => $datosUsuario['id_cajas'],
 						'id_rol' => $datosUsuario['id_roles']
 					];
-
+					
+					$ip = $_SERVER['REMOTE_ADDR'];
+					$detalles = $_SERVER['HTTP_USER_AGENT'];
+					$this->logs->save([
+						'id_usuario' => $datosUsuario['id'],
+						'evento' => 'Inicio de Sesion',
+						'ip_address'	=> $ip,
+						'detalles' => $detalles
+						]);
+					
 					$session = session();
 					$session->set($datosSesion);
-					return redirect()->to(base_url(). '/configuraciones');
+					return redirect()->to(base_url(). '/inicio');
 				 }else
 				 {
 					$data['error'] = 'Usuario o contraseñas incorrectas';
@@ -286,7 +297,16 @@ class Usuarios extends BaseController
 
 	public function logout()
 	{
+		
 		$session = session();
+		$ip = $_SERVER['REMOTE_ADDR'];
+					$detalles = $_SERVER['HTTP_USER_AGENT'];
+					$this->logs->save([
+						'id_usuario' => $session->id_usuario,
+						'evento' => 'Cierre de Sesion',
+						'ip_address'	=> $ip,
+						'detalles' => $detalles
+						]);
 		$session->destroy();
 		return redirect()->to(base_url());
 	}
